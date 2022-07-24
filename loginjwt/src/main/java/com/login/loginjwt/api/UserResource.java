@@ -18,7 +18,7 @@ import java.util.List;
 public class UserResource {
     private final UserService userService;
 
-    @GetMapping("/users")
+    @GetMapping("/public/users")
     public ResponseEntity<List<User>>getUsers(){
         return ResponseEntity.ok().body(userService.getUsers());
     }

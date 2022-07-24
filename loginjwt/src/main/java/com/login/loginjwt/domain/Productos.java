@@ -1,8 +1,10 @@
 package com.login.loginjwt.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -43,12 +45,21 @@ public class Productos {
     @PositiveOrZero(message = "No puede ingresar valores negativos")
     private Integer cantidad;
 
-    @Future
+    @Future(message = "debe ser una fecha en el futuro")
     @NotEmpty(message = "el campo no puede estar vacío")
-    private Date caducidad;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private java.sql.Date caducidad;
+
+    @PastOrPresent(message = "No se permiten fechas futuras")
+    @NotEmpty(message = "No puede estar vacío")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private java.sql.Date ingreso;
 
     @NotEmpty(message = "El campo no debe estar vacio")
     private String registroSanitario;
+
+    @Size(max = 250)
+    private String imagen;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "sucursal_id", nullable = false)
@@ -66,6 +77,22 @@ public class Productos {
     @JsonIgnore
     private UbicacionProducto ubicacionProducto;
 
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+
+    public java.sql.Date getIngreso() {
+        return ingreso;
+    }
+
+    public void setIngreso(java.sql.Date ingreso) {
+        this.ingreso = ingreso;
+    }
 
     public Integer getId() {
         return id;
@@ -147,11 +174,11 @@ public class Productos {
         this.ubicacionProducto = ubicacionProducto;
     }
 
-    public Date getCaducidad() {
+    public java.sql.Date getCaducidad() {
         return caducidad;
     }
 
-    public void setCaducidad(Date caducidad) {
+    public void setCaducidad(java.sql.Date caducidad) {
         this.caducidad = caducidad;
     }
 
@@ -163,7 +190,7 @@ public class Productos {
         this.registroSanitario = registroSanitario;
     }
 
-    public Productos(Integer id, String nombreGenerico, String nombreComercial, String descripcion, Double pvpVenta, Double pvpCompra, Integer cantidad, Date caducidad, String registroSanitario, Sucursales sucursal, TipoProducto tipoProducto, UbicacionProducto ubicacionProducto) {
+    public Productos(Integer id, String nombreGenerico, String nombreComercial, String descripcion, Double pvpVenta, Double pvpCompra, Integer cantidad, java.sql.Date caducidad, java.sql.Date ingreso, String registroSanitario, String imagen, Sucursales sucursal, TipoProducto tipoProducto, UbicacionProducto ubicacionProducto) {
         this.id = id;
         this.nombreGenerico = nombreGenerico;
         this.nombreComercial = nombreComercial;
@@ -172,7 +199,9 @@ public class Productos {
         this.pvpCompra = pvpCompra;
         this.cantidad = cantidad;
         this.caducidad = caducidad;
+        this.ingreso = ingreso;
         this.registroSanitario = registroSanitario;
+        this.imagen= imagen;
         this.sucursal = sucursal;
         this.tipoProducto = tipoProducto;
         this.ubicacionProducto = ubicacionProducto;

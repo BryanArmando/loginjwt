@@ -24,15 +24,19 @@ public class Medicos {
     @Lob
     private String descripcion;
 
+    @NotNull
+    private String urlImagen;
+
     public Medicos(){
         super();
     }
 
-    public Medicos(Integer id, String nombre, String apellido, String descripcion) {
+    public Medicos(Integer id, String nombre, String apellido, String descripcion, String urlImagen) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.descripcion = descripcion;
+        this.urlImagen = urlImagen;
     }
 
     public String getDescripcion() {
@@ -67,4 +71,11 @@ public class Medicos {
         this.descripcion = descripcion;
     }
 
+    public String getUrlImagen() {
+        return urlImagen;
+    }
+
+    public void setUrlImagen(String urlImagen) {
+        this.urlImagen = urlImagen;
+    }
 }

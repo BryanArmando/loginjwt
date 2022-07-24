@@ -26,8 +26,8 @@ public class ProductosController {
     private SucursalRepo sucursalRepository;
 
     @GetMapping("/public/sucursal/{sucursalId}/productos")
-    public Page<Productos> listarProductosPorSucursal(@PathVariable(value = "sucursalId") Integer sucursalId, Pageable pageable){
-        return productoRepository.findBySucursalId(sucursalId, pageable);
+    public List<Productos> listarProductosPorSucursal(@PathVariable(value = "sucursalId") Integer sucursalId){
+        return productoRepository.findBySucursalId(sucursalId);
     }
     @GetMapping("/public/productos")
     public List<Productos> listarProductos(){

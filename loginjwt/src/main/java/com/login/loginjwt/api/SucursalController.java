@@ -26,6 +26,7 @@ public class SucursalController {
         return sucursalRepo.findById(sucursalId).get();
     }
 
+    //se cambio a modelatribute para enviar datos de formulario en lugar de requesbody que recibe un json :c
     @PostMapping("/private/sucursal")
     public Sucursales guardarSucursal(@Valid @RequestBody Sucursales sucursal){
         return sucursalRepo.save(sucursal);

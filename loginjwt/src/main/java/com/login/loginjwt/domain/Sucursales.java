@@ -31,6 +31,17 @@ public class Sucursales {
     @NotEmpty
     private String direccion;
 
+    public Sucursales(Integer id, String nombre, String ciudad, Integer telefono, String direccion) {
+        this.id = id;
+        this.nombre = nombre;
+        this.ciudad = ciudad;
+        this.telefono = telefono;
+        this.direccion = direccion;
+    }
+    public Sucursales(){
+        super();
+    }
+
     public Integer getId() {
         return id;
     }

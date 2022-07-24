@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface ProductoRepo extends JpaRepository<Productos, Integer> {
 
-    Page<Productos> findBySucursalId(Integer sucursalId, Pageable pageable);
+    List<Productos> findBySucursalId(Integer sucursalId);
 
     Optional<Productos> findByIdAndSucursalId(Integer productoId, Integer sucursalId);
 

@@ -15,6 +15,16 @@ public class TipoProducto {
     @Column(nullable = false, unique = true, length = 50)
     private String nombre;
 
+
+    public TipoProducto(Integer id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
+
+    public TipoProducto(){
+        super();
+    }
+
     public String getNombre() {
         return nombre;
     }
