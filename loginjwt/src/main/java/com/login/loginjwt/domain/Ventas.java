@@ -1,5 +1,6 @@
 package com.login.loginjwt.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -8,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.sql.Time;
 import java.util.Date;
 
 @Entity
@@ -18,9 +20,13 @@ public class Ventas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @DateTimeFormat
+    //@DateTimeFormat
     @NotNull
-    private Date fecha_venta;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private java.sql.Date fecha_venta;
+
+
+    private Time hora_venta;
 
     @NotEmpty
     private String medicamento;
@@ -30,8 +36,16 @@ public class Ventas {
 
     @NotEmpty
     private Double pvp_venta;
+
+    @NotEmpty
+    private Double total_venta;
+
     @NotEmpty
     private Double pvp_compra;
+
+    @NotEmpty
+    private Double total_compra;
+
     @NotEmpty
     private String registro_sanitario;
 
@@ -49,12 +63,20 @@ public class Ventas {
         this.id = id;
     }
 
-    public Date getFecha_venta() {
+    public java.sql.Date getFecha_venta() {
         return fecha_venta;
     }
 
-    public void setFecha_venta(Date fecha_venta) {
+    public void setFecha_venta(java.sql.Date fecha_venta) {
         this.fecha_venta = fecha_venta;
+    }
+
+    public Time getHora_venta() {
+        return hora_venta;
+    }
+
+    public void setHora_venta(Time hora_venta) {
+        this.hora_venta = hora_venta;
     }
 
     public String getMedicamento() {
@@ -89,6 +111,22 @@ public class Ventas {
         this.pvp_compra = pvp_compra;
     }
 
+    public Double getTotal_venta() {
+        return total_venta;
+    }
+
+    public void setTotal_venta(Double total_venta) {
+        this.total_venta = total_venta;
+    }
+
+    public Double getTotal_compra() {
+        return total_compra;
+    }
+
+    public void setTotal_compra(Double total_compra) {
+        this.total_compra = total_compra;
+    }
+
     public String getRegistro_sanitario() {
         return registro_sanitario;
     }
@@ -108,13 +146,16 @@ public class Ventas {
     public Ventas() {
     }
 
-    public Ventas(Integer id, Date fecha_venta, String medicamento, Integer cantidad, Double pvp_venta, Double pvp_compra, String registro_sanitario, Sucursales sucursal) {
+    public Ventas(Integer id, java.sql.Date fecha_venta, Time hora_venta, String medicamento, Integer cantidad, Double pvp_venta, Double total_venta, Double pvp_compra, Double total_compra, String registro_sanitario, Sucursales sucursal) {
         this.id = id;
         this.fecha_venta = fecha_venta;
+        this.hora_venta = hora_venta;
         this.medicamento = medicamento;
         this.cantidad = cantidad;
         this.pvp_venta = pvp_venta;
+        this.total_venta = total_venta;
         this.pvp_compra = pvp_compra;
+        this.total_compra= total_compra;
         this.registro_sanitario = registro_sanitario;
         this.sucursal = sucursal;
     }
