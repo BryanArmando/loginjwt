@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface ProveedoresRepo extends JpaRepository<Proveedores, Integer> {
 
-    List<Proveedores> findByProveedorId(Integer proveedorId);
+   // List<Proveedores> findByProveedorId(Integer proveedorId);
 
 }

@@ -17,7 +17,7 @@ public interface VentasRepo extends JpaRepository<Ventas,Integer> {
     List<Ventas> getPVentaFilter(String value1, String value2);
 
 
-    @Query(value="select * from ventas a where a.fecha_venta between :value1 AND :value2", nativeQuery=true)
+    @Query(value="select * from ventas a where (a.fecha_venta between :value1 AND :value2) AND WHERE (a.surcursal_id :sucursalId )", nativeQuery=true)
     List<Ventas> getVentasIdFilter(String value1, String value2, Integer sucursalId);
 
 }

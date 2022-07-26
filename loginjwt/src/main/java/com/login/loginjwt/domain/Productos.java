@@ -55,6 +55,7 @@ public class Productos {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private java.sql.Date ingreso;
 
+    @Column(unique = true)
     @NotEmpty(message = "El campo no debe estar vacio")
     private String registroSanitario;
 
@@ -63,7 +64,6 @@ public class Productos {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "sucursal_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Sucursales sucursal;
 
