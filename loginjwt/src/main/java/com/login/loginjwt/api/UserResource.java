@@ -6,9 +6,17 @@ import com.login.loginjwt.service.UserService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 import java.util.List;
 
@@ -41,10 +49,21 @@ public class UserResource {
         return ResponseEntity.ok().build();
     }
 
+/*
+    private final AuthenticationManager authenticationManager;
 
+    @PostMapping("/login")
+    public Authentication general(@RequestBody String username, @RequestBody String password, HttpServletRequest request, HttpServletResponse response)throws AuthenticationException {
+        username= request.getParameter("username");
+        password = request.getParameter("password");
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+        return authenticationManager.authenticate(authenticationToken);
+    }
+*/
 }
 @Data
 class RoleToUserForm {
     private String username;
     private String roleName;
 }
+

@@ -26,4 +26,14 @@ public class PersonalController {
     public List<Personal> todopersonal(){
         return personalRepo.findAll();
     }
+
+    /**
+     * buscar personal por filtro de parecido entre nombre y apellido
+     * @param name
+     * @return
+     */
+    @GetMapping("/private/personalfilter/{name}")
+    public List<Personal> listaProd(@PathVariable(value = "name") String name){
+        return personalRepo.getPersonalFilterName(name);
+    }
 }

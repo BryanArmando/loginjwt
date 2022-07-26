@@ -72,5 +72,24 @@ public class VentasController {
         exporter.exportar(response);
     }
 
+    @GetMapping("/private/sucursal/{sucursalId}/reporteventas")
+    public void exportarVentasSucursal(@PathVariable(value = "sucursalId") Integer sucursalId, HttpServletResponse response) throws DocumentException, IOException{
+
+        response.setContentType("application/pdf");
+
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String fechaActual = dateFormatter.format(new Date());
+
+        String cabecera = "Content-Disposition";
+        String valor = "attachment; filename=Ventas_"+sucursalId+"Sucursal_" + fechaActual + ".pdf";
+
+        response.setHeader(cabecera, valor);
+
+        List<Ventas> ventas = ventasRepo.findBySucursalId(sucursalId);
+
+        GenerateReportVentas exporter = new GenerateReportVentas(ventas);
+        exporter.exportar(response);
+    }
+
 
 }

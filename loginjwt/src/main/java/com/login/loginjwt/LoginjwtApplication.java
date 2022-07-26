@@ -26,7 +26,7 @@ public class LoginjwtApplication {
 	}
 
 
-
+/*
 
 	@Bean
 	CommandLineRunner run(UserService userService){
@@ -42,6 +42,8 @@ public class LoginjwtApplication {
 		};
 	}
 
+
+ */
 
 
 }

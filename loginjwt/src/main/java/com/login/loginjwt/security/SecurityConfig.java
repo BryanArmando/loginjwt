@@ -30,9 +30,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
+
         customAuthenticationFilter.setFilterProcessesUrl("/api/login"); //cambio la ruta por defecto agregando api
+
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        //verificar si se permite el acceso a las privadas
+        http.authorizeRequests().antMatchers("/doc/**").permitAll();
         //declaro las rutas que seran publicas
         http.authorizeRequests().antMatchers("/api/login").permitAll();
         //todas las rutas con public estan disponibles
