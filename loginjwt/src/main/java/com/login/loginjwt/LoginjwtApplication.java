@@ -26,7 +26,7 @@ public class LoginjwtApplication {
 	}
 
 
-
+/*
 
 	@Bean
 	CommandLineRunner run(UserService userService){
@@ -35,12 +35,14 @@ public class LoginjwtApplication {
 			userService.saveRole(new Role(null, "ROLE_ADMIN"));
 
 			userService.saveUser(new User(null, "Bryan", "Armand", "1234", new ArrayList<>()));
-			userService.saveUser(new User(null, "Armando", "Br", "1234", new ArrayList<>()));
+			userService.saveUser(new User(null, "Diana", "Dianis", "1234", new ArrayList<>()));
 
 			userService.addRoleToUser("Armand", "ROLE_ADMIN");
-			userService.addRoleToUser("Br", "ROLE_USER");
+			userService.addRoleToUser("Dianis", "ROLE_ADMIN");
 		};
 	}
+
+*/
 
 
 

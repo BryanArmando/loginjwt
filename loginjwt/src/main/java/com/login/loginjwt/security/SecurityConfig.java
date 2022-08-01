@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
 
-        customAuthenticationFilter.setFilterProcessesUrl("/api/login"); //cambio la ruta por defecto agregando api
+        customAuthenticationFilter.setFilterProcessesUrl("/api/public/user/login"); //cambio la ruta por defecto agregando api
 
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //todas las rutas con public estan disponibles
         http.authorizeRequests().antMatchers("/api/public/**").permitAll();
         //las rutas disponibles para role admin
-        http.authorizeRequests().antMatchers("/api/private").hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers("/api/private/**").hasAnyAuthority("ROLE_ADMIN");
         //Limito quien puede hacer este metodo a partir de save
         http.authorizeRequests().antMatchers(GET,"/api/user/save/**").hasAnyAuthority("ROLE_ADMIN");
         //permite cualquier solicitud a cualquier persona

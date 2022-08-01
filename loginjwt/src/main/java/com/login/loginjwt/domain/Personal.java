@@ -1,5 +1,6 @@
 package com.login.loginjwt.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -40,7 +41,8 @@ public class Personal {
     @Past
     @Column(nullable = false)
     @NotNull
-    private Date fechaNacimiento;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private java.sql.Date fechaNacimiento;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "sucursal_id", nullable = false)
@@ -64,7 +66,7 @@ public class Personal {
         this.sucursal = sucursal;
     }
 
-    public Date getFechaNacimiento() {
+    public java.sql.Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
@@ -108,7 +110,7 @@ public class Personal {
         this.correo = correo;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(java.sql.Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 }
