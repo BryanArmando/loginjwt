@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.login.loginjwt.domain.Role;
 import com.login.loginjwt.domain.User;
 import com.login.loginjwt.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,23 +41,31 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class UserResource {
     private final UserService userService;
 
+    @ApiOperation(value = "Obtener usuarios"
+            ,notes = "Este es un método que permite obtener los usuarios")
     @GetMapping("/public/users")
     public ResponseEntity<List<User>>getUsers(){
         return ResponseEntity.ok().body(userService.getUsers());
     }
 
+    @ApiOperation(value = "Guardar usuario"
+            ,notes = "Método para guardar un usuario")
     @PostMapping("/user/save")
     public ResponseEntity<User>saveUser(@RequestBody User user){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveUser(user));
     }
 
+    @ApiOperation(value = "Guardar un rol"
+            ,notes = "Método para guardar usuario")
     @PostMapping("/role/save")
     public ResponseEntity<Role>saveRole(@RequestBody Role role){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/role/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveRole(role));
     }
 
+    @ApiOperation(value = "Agregar rol a usuario"
+            ,notes = "Método para agregar a un usuario un rol")
     @PostMapping("/role/addtouser")
     public ResponseEntity<?>addRoleToUser(@RequestBody RoleToUserForm form){
         userService.addRoleToUser(form.getUsername(), form.getRoleName());
@@ -74,6 +83,8 @@ public class UserResource {
 
     private final AuthenticationManager authenticationManager;
 
+    @ApiOperation(value = "Iniciar Sesión"
+            ,notes = "Este método permite ingresar usuario y contraseña para autenticarse y obtener un Token de autorización para los Endpoints privados")
    @PostMapping("/public/user/login")
     public Authentication general(@RequestParam("username") String username, @RequestParam("password") String password, HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         username= request.getParameter("username");
@@ -85,31 +96,6 @@ public class UserResource {
        return authenticationManager.authenticate(authenticationToken);
     }
 
-/*
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
-        org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User)authentication.getPrincipal();
-        Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
-        String access_token = JWT.create()
-                .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 10*60*1000))
-                .withIssuer(request.getRequestURL().toString())
-                .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
-                .sign(algorithm);
-        String refresh_token = JWT.create()
-                .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 10*60*1000))
-                .withIssuer(request.getRequestURL().toString())
-                .sign(algorithm);
-       //response.setHeader("acces_token", access_token);
-       // response.setHeader("refresh_token", refresh_token);
-        Map<String, String> tokens = new HashMap<>();
-        tokens.put("acces_token", access_token);
-        tokens.put("refresh_token", refresh_token);
-        response.setContentType(APPLICATION_JSON_VALUE);
-        new ObjectMapper().writeValue(response.getOutputStream(), tokens);
-    }
-
- */
 
 }
 @Data

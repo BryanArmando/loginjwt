@@ -1,6 +1,8 @@
 package com.login.loginjwt.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "proveedores")
@@ -10,12 +12,20 @@ public class Proveedores {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Size(max = 100)
+    @NotEmpty(message = "el campo no puede estar vacio")
     private String nombreProveedor;
 
+    @Size(max = 12)
+    @NotEmpty(message = "el campo no puede estar vacio")
     private String numContactoProveedor;
 
+    @Size(max = 150)
+    @NotEmpty(message = "el campo no puede estar vacio")
     private String direccion;
 
+    @Size(max = 30)
+    @NotEmpty(message = "el campo no puede estar vacio")
     private String ruc;
 
     public Proveedores(Integer id, String nombreProveedor, String numContactoProveedor, String direccion, String ruc) {
